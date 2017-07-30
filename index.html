@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Japanese Name Generator</title>
+  <style type="text/css">
+  body {
+    margin: 30px auto;
+    text-align: center;
+    font-family: "Comic Sans MS", "Comic Sans", "Marker Felt", sans-serif;
+  }
+
+  #name {
+    font-size: 25px;
+    width: 300px;
+    height: 300px;
+    line-height: 300px;
+    border-radius: 150px;
+    text-align: center;
+    margin: auto;
+    color: white;
+    background: red;
+    cursor: pointer;
+  }
+  </style>
+</head>
+
+<body>
+
+<script type="text/javascript">
+
+function generateFullName(min, max)
+{
+  var name_div = document.getElementById("name");
+  name_div.innerHTML = generateName(min, max) + " " + generateName(min, max);
+}
+
+function generateName(min, max) {
+  var syllables = [
+    'ma',
+    'mo',
+    'men',
+    'ya',
+    'yin',
+    'yu',
+    'chi',
+    'shi',
+    'jin',
+    'ri',
+    'ro',
+    'kan',
+    'ku',
+    'kai',
+    'sai',
+    'su',
+    'go',
+    'gi',
+    'ta',
+    'to',
+    'tai',
+    'do',
+    'na',
+    'zu',
+    'roi'
+  ];
+  
+  var generated_name = "";
+  var used_syllables = [];
+  
+  for (i = 0; i < getRandomInt(min, max); i++) {
+    j = getRandomInt(0, syllables.length-1);
+    while (used_syllables.indexOf(syllables[j]) !== -1) { // at se neopakuji
+        j = getRandomInt(0, syllables.length-1);
+    }
+    generated_name += syllables[j];
+    used_syllables.push(syllables[j]);
+  }
+  
+  return capitalizeFirstLetter(generated_name);
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+</script>
+
+<h1>Japanese Name Generator</h1>
+<div onclick="generateFullName(1,4);" id="name">Click me!</div>
+
+</body>
+
+</html>
